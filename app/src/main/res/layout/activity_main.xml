@@ -39,5 +39,14 @@
         android:layout_height="wrap_content"
         android:onClick="filter"
         android:text="filter 方法(使用过滤功能)" />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="downloadImage"
+        android:text="下载一张图片" />
 
+    <ImageView
+        android:id="@+id/iv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 </LinearLayout>
