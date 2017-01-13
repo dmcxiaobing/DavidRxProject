@@ -6,9 +6,33 @@ package com.qq986945193.davidrxproject.java;/*
  * @OsChina空间: https://my.oschina.net/mcxiaobing
  */
 
+/**
+ * 进行测试 观察者与观察者
+ */
 public class Test {
 
-    public static void main(String args[]){
+    public static void main(String args[]) {
+//        testWatch();
+          testObserver();
+    }
+
+    /**
+     * 测试simpleObserver
+     */
+    private static void testObserver() {
+        SimpleObservable simpleObservable = new SimpleObservable();
+        SimpleObserver simpleObserver = new SimpleObserver(simpleObservable);
+        simpleObservable.setData(2);
+        simpleObservable.setData(1);
+        simpleObservable.setData(3);
+
+
+    }
+
+    /**
+     * 测试watch
+     */
+    private static void testWatch() {
         WatchedImp watchedImp = new WatchedImp();
         WatchImp watchImp = new WatchImp();
         watchedImp.add(watchImp);
