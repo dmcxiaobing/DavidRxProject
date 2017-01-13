@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        RXUtils.range();
     }
 
     /**
@@ -39,5 +40,23 @@ public class MainActivity extends AppCompatActivity {
         RXUtils.createMethod2();
     }
 
+    /**
+     * from 方法演示
+     */
+    public void from(View view){
+        RXUtils.from();
+    }
 
+    /**
+     * just方法
+     */
+    public void just(View view){
+        RXUtils.just();
+    }
+    /**
+     * filter 方法
+     */
+    public void filter(View view){
+        RXUtils.filter();
+    }
 }

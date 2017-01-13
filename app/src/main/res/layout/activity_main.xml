@@ -16,7 +16,28 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="createMethod2"
-        android:text="create方法2" />
+        android:text="create的第二种方法2" />
 
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button2"
+        android:onClick="from"
+        android:text="from 方法(返回的对象一般都是数值类型)" />
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="just"
+        android:text="just方法(处理数组集合)" />
+
+    <Button
+        android:id="@+id/button5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="filter"
+        android:text="filter 方法(使用过滤功能)" />
 
 </LinearLayout>
