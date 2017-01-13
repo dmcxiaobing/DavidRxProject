@@ -9,7 +9,13 @@ package com.qq986945193.davidrxproject;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 
+import com.qq986945193.davidrxproject.android.RXUtils;
+
+/**
+ * RX响应式编程
+ */
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -17,4 +23,21 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }
+
+    /**
+     * 创建create 方法演示
+     */
+    public void createMethod(View view){
+        RXUtils.createObservable();
+    }
+
+
+    /**
+     * 创建create第二种方法演示
+     */
+    public void createMethod2(View view){
+        RXUtils.createMethod2();
+    }
+
+
 }
