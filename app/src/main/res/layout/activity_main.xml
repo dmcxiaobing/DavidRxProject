@@ -44,9 +44,14 @@
         android:layout_height="wrap_content"
         android:onClick="downloadImage"
         android:text="下载一张图片" />
-
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="login"
+        android:text="这里测试登陆的一个功能。账号和密码我直接填上去了。" />
     <ImageView
         android:id="@+id/iv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
+
 </LinearLayout>

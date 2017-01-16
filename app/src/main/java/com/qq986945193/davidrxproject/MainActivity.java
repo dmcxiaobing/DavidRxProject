@@ -7,6 +7,7 @@ package com.qq986945193.davidrxproject;
  * @OsChina空间: https://my.oschina.net/mcxiaobing
  */
 
+import android.app.ProgressDialog;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
@@ -14,10 +15,19 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.qq986945193.davidrxproject.android.DownLoadUtills;
+import com.qq986945193.davidrxproject.android.LoginUtils;
 import com.qq986945193.davidrxproject.android.RXUtils;
 import com.squareup.picasso.Picasso;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import rx.Scheduler;
 import rx.Subscriber;
@@ -39,6 +49,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 //        RXUtils.range();
         iv = (ImageView) findViewById(R.id.iv);
+        mProgressDialog = new ProgressDialog(MainActivity.this);
+        mProgressDialog.setTitle("请稍等。。");
 
     }
 
@@ -47,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
      * 下载一张图片
      */
     public static final String IMG_URL = "http://git.oschina.net/uploads/70/577070_MCXIAOBING.png?1468392539";
+
     public void downloadImage(View view) {
         //这里返回的是observable 所以直接绑定即可
         //让Observable运行在新线程中
@@ -71,6 +84,67 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+    public static final String LOGIN_URL = "http://192.168.0.111:8080/JavaWebBase/LoginActionServlet";
+    ProgressDialog mProgressDialog;
+
+    /**
+     * 这里测试登陆的一个功能。账号和密码我直接填上去了。
+     */
+    public void login(View view) {
+        Map<String, String> params = new HashMap<>();
+        params.put("username", "admin");
+        params.put("password", "123456");
+
+        LoginUtils.loginMethod(params, LOGIN_URL).subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Subscriber<String>() {
+            @Override
+            public void onCompleted() {
+                hideDialog();
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                hideDialog();
+                Toast.makeText(MainActivity.this, "登陆失败", Toast.LENGTH_SHORT).show();
+
+            }
+
+            @Override
+            public void onNext(String s) {
+                if (mProgressDialog != null) {
+                    mProgressDialog.show();
+                }
+                JSONObject jsonObject = null;
+                try {
+                    jsonObject = new JSONObject(s);
+                    String jsonValue = jsonObject.getJSONObject("result").getString("resultMsg");
+                    if (jsonValue.equals("success")) {
+                        Toast.makeText(MainActivity.this, "登陆成功", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(MainActivity.this, "登陆失败", Toast.LENGTH_SHORT).show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    Toast.makeText(MainActivity.this, "登陆失败", Toast.LENGTH_SHORT).show();
+                } finally {
+                    hideDialog();
+                }
+
+            }
+
+        });
+
+    }
+
+    private void hideDialog() {
+        if (mProgressDialog != null && !mProgressDialog.isShowing()) {
+            mProgressDialog.dismiss();
+        } else {
+            mProgressDialog.dismiss();
+        }
+    }
+
 
     /**
      * 创建create 方法演示
